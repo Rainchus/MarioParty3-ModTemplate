@@ -12,8 +12,8 @@ MPROMTOOL = os.path.join(SCRIPT_DIR, "tools/mpromtool.exe")
 MPN64SPRTOOL = os.path.join(SCRIPT_DIR, "tools/mpn64sprtool.exe")
 
 def process_anm_to_xml():
-    input_dir = "mp3_extract"
-    output_dir = "original_assets"
+    input_dir = "assets/mp3_extract"
+    output_dir = "assets/original_assets"
     os.makedirs(output_dir, exist_ok=True)
     log(f"Ensured output directory exists: {output_dir}")
 
@@ -36,7 +36,7 @@ def process_anm_to_xml():
 
 def process_files():
     new_assets_dir = "new_assets"
-    new_converted_assets_dir = "new_converted_assets"
+    new_converted_assets_dir = "assets/new_converted_assets"
     os.makedirs(new_converted_assets_dir, exist_ok=True)
     log(f"Ensured output directory exists: {new_converted_assets_dir}")
 
@@ -64,7 +64,7 @@ def process_files():
 
 def compile_txt_to_bin():
     input_dir = "new_assets"
-    output_dir = "new_converted_assets"
+    output_dir = "assets/new_converted_assets"
     compiler_script = os.path.join(SCRIPT_DIR, "tools", "mp3_message_compiler.py")
     os.makedirs(output_dir, exist_ok=True)
     log(f"Ensured output directory exists: {output_dir}")
@@ -91,18 +91,23 @@ def compile_txt_to_bin():
 
 def main():
     parser = argparse.ArgumentParser(description="Process and rebuild the ROM.")
-    parser.add_argument("-dump", action="store_true", help="Force re-extraction of rom/mp3.z64 into mp3_extract.")
+    parser.add_argument("-dump", action="store_true", help="Force re-extraction of rom/mp3.z64 into assets/mp3_extract.")
     args = parser.parse_args()
 
-    if not os.path.exists("mp3_extract") or args.dump:
+    # ✅ Ensure mp3_extract exists
+    mp3_extract_dir = "assets/mp3_extract"
+    os.makedirs(mp3_extract_dir, exist_ok=True)
+    log(f"Ensured directory exists: {mp3_extract_dir}")
+
+    if not os.listdir(mp3_extract_dir) or args.dump:  # check if empty or forced dump
         if args.dump:
             log("Forced dump requested via -dump flag.")
         else:
-            log("mp3_extract directory does not exist. Dumping...")
+            log("assets/mp3_extract is empty. Dumping...")
 
         try:
-            subprocess.run([MPROMTOOL, "-a", "rom/mp3.z64", "mp3_extract"], check=True)
-            log("Successfully extracted ROM to mp3_extract")
+            subprocess.run([MPROMTOOL, "-a", "rom/mp3.z64", mp3_extract_dir], check=True)
+            log("Successfully extracted ROM to assets/mp3_extract")
         except subprocess.CalledProcessError as e:
             log(f"❌ mpromtool failed: exit code {e.returncode}")
             return
@@ -112,13 +117,14 @@ def main():
 
         process_anm_to_xml()
     else:
-        log("Skipping extraction as 'mp3_extract' already exists. Use -dump to force extraction.")
+        log("Skipping extraction as 'assets/mp3_extract' already exists. Use -dump to force extraction.")
+
 
     if not os.path.exists("new_converted_assets"):
         os.makedirs("new_converted_assets")
         log("Created new_converted_assets directory")
 
-        romdata_src = "mp3_extract/romdata.xml"
+        romdata_src = "assets/mp3_extract/romdata.xml"
         romdata_dest = "new_converted_assets/romdata.xml"
         if os.path.exists(romdata_src):
             shutil.copy(romdata_src, romdata_dest)
@@ -127,12 +133,12 @@ def main():
     process_files()
     compile_txt_to_bin()
 
-    log("Copying new_converted_assets back to mp3_extract...")
-    shutil.copytree("new_converted_assets", "mp3_extract", dirs_exist_ok=True)
+    log("Copying assets/new_converted_assets back to assets/mp3_extract...")
+    shutil.copytree("assets/new_converted_assets", "assets/mp3_extract", dirs_exist_ok=True)
 
     log("Building ROM...")
     try:
-        subprocess.run([MPROMTOOL, "-b", "-a", "rom/mp3.z64", "mp3_extract", "rom/mp3-mainFS-repack.z64"], check=True)
+        subprocess.run([MPROMTOOL, "-b", "-a", "rom/mp3.z64", "assets/mp3_extract", "rom/mp3-mainFS-repack.z64"], check=True)
         log("Successfully built mp3-mainFS-repack.z64")
     except subprocess.CalledProcessError as e:
         log(f"❌ mpromtool build failed: exit code {e.returncode}")
