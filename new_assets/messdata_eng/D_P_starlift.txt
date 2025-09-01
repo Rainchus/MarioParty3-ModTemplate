@@ -1,0 +1,172 @@
+# Mario Party 3 Messages
+# Decompiled from binary format
+# Edit this file and recompile with mp3_message_compiler.py
+
+#message:00 {
+"\x0BThis Star Lift goes to\x0Athe \x05\x0FDuel Map\x16\x19\xC2\x19\xFF\x0BI\m \x05\x0FTumble\x16\x19\x85 From here on\x0Aout\x82 I\ll be your guide\x85\x19\xFF"
+};
+
+#message:01 {
+"\x0BGo back to the \x05\x0FCastle Grounds\x16\x19\xC3\x0A\x1A\x1A\x0CYes\x1A\x1A\x0D\x0CNo\x0D"
+};
+
+#message:02 {"\x0BOK\xC2 Let\s start setting\x0Aup your game\x85\x19\xFF"};
+
+#message:03 {"\x0BHow many will play this time\xC3\x19\xFF"};
+
+#message:04 {
+"\x0B\x05\x0F1 Player\x16\x19 and\x0A\x03\x0F1 Computer Character\x16\x19"
+};
+
+#message:05 {"\x0B\x05\x0F2 Players\x16\x19"};
+
+#message:06 {
+"\x0BChoose which \x05\x0Fcharacter\x16\x19\x0Athe \x03\x0Fcomputer\x16\x19 will control\x85\x19\xFF"
+};
+
+#message:07 {
+"\x0B\x03\x0FMario == \x16\x19Our merry hero goes\x0Ainto battle with \x05\x0FKoopa Troopa\x16\x19\xC2"
+};
+
+#message:08 {
+"\x0B\x03\x0FLuigi == \x16\x19This man of many talents\x0Aenters battle with\x05\x0F Goomba\xC2\x16\x19"
+};
+
+#message:09 {
+"\x0B\x03\x0FPeach == \x16\x19The lovely Princess\x0Aheads into battle with \x05\x0FToad\x16\x19\xC2"
+};
+
+#message:0A {
+"\x0B\x03\x0FYoshi == \x16\x19Bursting with energy\x82\x0Ahe goes to battle with\x05\x0F Boo\x16\x19\xC2"
+};
+
+#message:0B {
+"\x0B\x03\x0FWario == \x16\x19With strength and cunning\x82\x0Ahe rushes into battle with\x05\x0F Bob=omb\x16\x19\xC2"
+};
+
+#message:0C {
+"\x0B\x03\x0FDonkey == \x16\x19The most powerful of all\x82\x0Ahe charges into battle with\x05\x0F Whomp\x16\x19\xC2"
+};
+
+#message:0D {
+"\x0B\x03\x0FDaisy == \x16\x19Quite the tomboy\x82\x0Ashe enters battle with\x05\x0F \x16\x19\x05\x0FSnifit\x16\x19\xC2"
+};
+
+#message:0E {
+"\x0B\x03\x0FWaluigi == \x16\x19This tricky guy\x0Aheads into battle with\x05\x0F Piranha Plant\x16\x19\xC2"
+};
+
+#message:0F {"\x0BSet the skill\x0Alevel for \x11\x85"};
+
+#message:10 {"\x0BNow\x82 set any\x0Ahandicaps\x85\x19\xFF"};
+
+#message:11 {
+"\x0BWhat will each character\s\x0A\x07\x0Fskill level \x16\x19be\xC3"
+};
+
+#message:12 {
+"\x0BBegin with all \x07\x0Fskill\x16\x19\x0A\x07\x0Flevels \x16\x19set to \x05\x0F5\x16\x19\x85"
+};
+
+#message:13 {"\x0BSet \x11\s \x07\x0Fskill level\x16\x19\x85"};
+
+#message:14 {"\x0BNext\x82 choose a board map\x85\x19\xFF"};
+
+#message:15 {"\x0B\x05\x0FGATE GUY\x16\x19\x0AA map with shortcuts\x85"};
+
+#message:16 {
+"\x0B\x05\x0FARROWHEAD\x16\x19\x0AA map with many junctions\x85"
+};
+
+#message:17 {
+"\x0B\x05\x0FPIPESQUEAK\x16\x19\x0AA map with pipes for warping\x85"
+};
+
+#message:18 {
+"\x0B\x05\x0FBLOWHARD\x16\x19\x0A\x19A map that blows partners around\x85\x19"
+};
+
+#message:19 {
+"\x0B\x05\x0FMR\x85 MOVER\x16\x19\x0A\x19A map with many conveyor belts\x85\x19"
+};
+
+#message:1A {
+"\x0B\x05\x0FBACKTRACK\x16\x19\x0AA map that reverses your direction\x85"
+};
+
+#message:1B {
+"\x0BAre these settings OK\xC3\x0A\x1A\x1A\x0CYes\x1A\x1A\x0D\x0CNo\x0D"
+};
+
+#message:1C {
+"\x0BReselect the settings\xC3\x0A\x1A\x1A\x0CYes\x1A\x1A\x0D\x0CNo\x0D"
+};
+
+#message:1D {
+"\x0BThen it\s time to get started\xC2\x0ALet the duel begin\xC2\x19\xFF"
+};
+
+#message:1E {
+"\x0BHe has decent staminaaa\x0Abut little attack power\x85\x0AHis low pay is a plus\x85"
+};
+
+#message:1F {"\x0BThis familiar\x82 funny guy\x0Areally packs a punch\x85"};
+
+#message:20 {
+"\x0BHis ability to prevent coin\x0Atheft is more helpful than\x0Ayou might think\x85"
+};
+
+#message:21 {
+"\x0BA reliable buddy who\nstrikes your opponent\ndirectly\x85 Unlike some\x82 he\x5Cll\nstick around\x85"
+};
+
+#message:22 {
+"\x0BThis ghoulish ghost sends\x0Aany damage you\ve taken\x0Aback to your opponent\x85"
+};
+
+#message:23 {
+"\x0BThis defensive pro has\x0Amore than enough strength\x82\x0Abut his attack power of 0 is\x0Asometimes a liability\x85"
+};
+
+#message:24 {
+"\x0BHe has well=balanced\x0Aabilities and can even\x0Acollect coins sometimes\x85"
+};
+
+#message:25 {
+"\x0BHe has the strongest\x0Aattack power and will\x0Asometimes cause an\x0Aextra die to appear\x85"
+};
+
+#message:26 {"\x0B\x05\x0FKoopa Troopa\x16\x19"};
+
+#message:27 {"\x0B\x05\x0FGoomba\x16\x19"};
+
+#message:28 {"\x0B\x05\x0FToad\x16\x19"};
+
+#message:29 {"\x0B\x05\x0FBob=omb\x16\x19"};
+
+#message:2A {"\x0B\x05\x0FBoo\x16\x19"};
+
+#message:2B {"\x0B\x05\x0FWhomp\x16\x19"};
+
+#message:2C {"\x0B\x05\x0FSnifit\x16\x19"};
+
+#message:2D {"\x0B\x05\x0FPiranha Plant\x16\x19"};
+
+#message:2E {"\x0BNow\x82 set the number\x0Aof turns\x85\x19\xFF"};
+
+#message:2F {
+"\x0B\x05\x0FLite Mode\x16\x19\x0AThe game will end after 20 turns\x85"
+};
+
+#message:30 {
+"\x0B\x05\x0FFull Mode\x16\x19\x0AThe game will have no turn limit\x85"
+};
+
+#message:31 {"\x0BFinally\x82 let\s set up\x0Athe Mini=Games\x85\x19\xFF"};
+
+#message:32 {"\x0B\x05\x0FALL\x16\x19\x0AAny Mini=Game may appear\x85"};
+
+#message:33 {
+"\x0B\x05\x0FEASY\x16\x19\x0AOnly simple Mini=Games will appear\x85"
+};
+

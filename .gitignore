@@ -1,0 +1,12 @@
+mp3_extract/
+new_converted_assets/
+original_assets/
+asm/main.asm
+rom/*.z64
+rom/*.eeprom
+.ninja_log
+build.ninja
+*.eeprom
+*.z64
+out.txt
+syms.txt
