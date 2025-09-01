@@ -117,7 +117,7 @@
 };
 
 #message:21 {
-"\x0BA reliable buddy who\nstrikes your opponent\ndirectly\x85 Unlike some\x82 he\x5Cll\nstick around\x85"
+"\x0BThis explosive specialist can\x0Ajump over an opponent\s\x0Apartner for a direct attack\x85"
 };
 
 #message:22 {
