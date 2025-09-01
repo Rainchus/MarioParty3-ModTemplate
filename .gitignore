@@ -6,6 +6,8 @@ rom/*.z64
 rom/*.eeprom
 .ninja_log
 build.ninja
+.ninja_deps
+obj/
 *.eeprom
 *.z64
 out.txt

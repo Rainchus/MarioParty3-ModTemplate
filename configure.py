@@ -32,6 +32,11 @@ PAYLOAD_END_RAM:
                 continue
             file.write(f".include \"{asm_file}\"\n")
 
+        file.write(".headersize 0x80400000 - 0x2000000\n")
+
+        file.write(f'.org 0x80400000\n')
+        file.write('PAYLOAD_START_RAM:\n')
+
         for s_file in s_files:
             file.write(f".include \"{s_file}\"\n")
 
