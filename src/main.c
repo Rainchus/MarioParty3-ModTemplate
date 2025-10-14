@@ -7,6 +7,16 @@ s16 func_80055810_56410(void*);
 void DataClose(void* data);
 void HuSprKill(s16);
 
+GW_PLAYER* MBGetPlayerStruct(s32 playerIndex);
+s32 func_800DEB2C_F274C_shared_board(s32);
+void func_800EC590_1001B0_shared_board(s32 arg0, s32 arg1);
+void func_800DCA64_F0684_shared_board(s32);
+void FixUpPlayerItemSlots(s32 arg0);
+void func_800DE9AC_F25CC_shared_board(s32, s32);
+void func_800FF900_113520_shared_board(s16, s16);
+void func_800DC128_EFD48_shared_board(s32);
+void HuPrcSleep(s32 time);
+
 //item function definitions
 s32 func_800E2974_F6594_shared_board(void);
 s32 func_800E29E8_F6608_shared_board(void);
@@ -29,9 +39,50 @@ s32 func_800E3420_F7040_shared_board(void);
 s32 func_800E3448_F7068_shared_board(void);
 s32 func_800E3470_F7090_shared_board(void);
 
+enum ITEM_FUNCTIONS {
+    IFUNC_BOO = 0,
+    IFUNC_MAGIC_LAMP = 1,
+    IFUNC_WARP_BLOCK = 2,
+    IFUNC_PLUNDER_CHEST = 3,
+    IFUNC_BOWSER_SUIT_BEGIN = 4,
+    IFUNC_BOWSER_SUIT_END = 5,
+    IFUNC_MUSHROOM = 6, //this is really the hand drag event
+};
+
+extern void (*MBItemSubFunctions[22])(void);
+extern s32 D_80100F90_114BB0_shared_board;
+
+s32 newfunc_800E29E8_F6608_shared_board(void) {
+    GW_SYSTEM* system = &GwSystem;
+    GW_PLAYER* player = MBGetPlayerStruct(CUR_PLAYER);
+
+    if (func_800DEB2C_F274C_shared_board(system->current_player_index) == 3 && player->rev & 0x80) {
+        player->rev &= ~0x80;
+        func_800EC590_1001B0_shared_board(-1, 0x3A2B);
+    } else {
+        if (func_800DEB2C_F274C_shared_board(system->current_player_index) == 3) {
+            func_800EC590_1001B0_shared_board(-1, 0x3A27);
+        }
+        if (player->rev & 0x80) {
+            player->rev &= ~0x80;
+            func_800EC590_1001B0_shared_board(-1, 0x3A29);
+        }        
+    }
+
+    func_800DCA64_F0684_shared_board(GwSystem.current_player_index);
+    MBItemSubFunctions[IFUNC_MUSHROOM]();
+    GwPlayer[GwSystem.current_player_index].itemNo[D_80100F90_114BB0_shared_board] = -1;
+    FixUpPlayerItemSlots(GwSystem.current_player_index);
+    func_800DE9AC_F25CC_shared_board(GwSystem.current_player_index, 2);
+    func_800FF900_113520_shared_board(CUR_PLAYER, 2);
+    func_800DC128_EFD48_shared_board(GwSystem.current_player_index);
+    HuPrcSleep(15);
+    return 1;
+}
+
 s32 (*newMBItemFunctions[])(void) = {
-    func_800E2974_F6594_shared_board,
-    func_800E29E8_F6608_shared_board,
+    func_800E2974_F6594_shared_board, //No item
+    func_800E29E8_F6608_shared_board, //Mushroom
     func_800E2B24_F6744_shared_board,
     func_800E2B4C_F676C_shared_board,
     func_800E2BCC_F67EC_shared_board,
@@ -53,8 +104,8 @@ s32 (*newMBItemFunctions[])(void) = {
     //
     NULL, //toad item bag function
     NULL, //baby bowser item bag function
-    //new item functions start here
-    func_800E2974_F6594_shared_board
+    //new item functions start here (duplicate of basic mushroom as test)
+    newfunc_800E29E8_F6608_shared_board
 };
 
 extern s16 newSpriteIDList[];
