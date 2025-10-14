@@ -10,10 +10,20 @@
 .definelabel func_80055810_56410, 0x80055810
 .definelabel DataClose, 0x80009E6C
 .definelabel HuSprKill, 0x80055670
-
-
+.definelabel MBGetPlayerStruct, 0x800F213C
+.definelabel GwSystem, 0x800CD058
+.definelabel MBItemSubFunctions, 0x80102C58
+.definelabel HuPrcSleep, 0x8004F010
+.definelabel FixUpPlayerItemSlots, 0x800E4A08
+.definelabel func_800DEB2C_F274C_shared_board, 0x800DEB2C
+.definelabel func_800DCA64_F0684_shared_board, 0x800DCA64
+.definelabel func_800DE9AC_F25CC_shared_board, 0x800DE9AC
+.definelabel func_800FF900_113520_shared_board, 0x800FF900
+.definelabel func_800DC128_EFD48_shared_board, 0x800DC128
+.definelabel func_800EC590_1001B0_shared_board, 0x800EC590
+.definelabel D_80100F90_114BB0_shared_board, 0x80100F90
 .definelabel func_800E2974_F6594_shared_board, 0x800E2974
-.definelabel func_800E29E8_F6608_shared_board, 0x800E2974
+.definelabel func_800E29E8_F6608_shared_board, 0x800E29E8
 .definelabel func_800E2B24_F6744_shared_board, 0x800E2B24
 .definelabel func_800E2B4C_F676C_shared_board, 0x800E2B4C
 .definelabel func_800E2BCC_F67EC_shared_board, 0x800E2BCC
