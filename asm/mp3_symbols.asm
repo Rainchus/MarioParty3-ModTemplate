@@ -10,3 +10,25 @@
 .definelabel func_80055810_56410, 0x80055810
 .definelabel DataClose, 0x80009E6C
 .definelabel HuSprKill, 0x80055670
+
+
+.definelabel func_800E2974_F6594_shared_board, 0x800E2974
+.definelabel func_800E29E8_F6608_shared_board, 0x800E2974
+.definelabel func_800E2B24_F6744_shared_board, 0x800E2B24
+.definelabel func_800E2B4C_F676C_shared_board, 0x800E2B4C
+.definelabel func_800E2BCC_F67EC_shared_board, 0x800E2BCC
+.definelabel func_800E2C4C_F686C_shared_board, 0x800E2C4C
+.definelabel func_800E2E28_F6A48_shared_board, 0x800E2E28
+.definelabel func_800E2CC4_F68E4_shared_board, 0x800E2CC4
+.definelabel func_800E2C74_F6894_shared_board, 0x800E2C74
+.definelabel func_800E2CEC_F690C_shared_board, 0x800E2CEC
+.definelabel func_800E2C9C_F68BC_shared_board, 0x800E2C9C
+.definelabel func_800E2F38_F6B58_shared_board, 0x800E2F38
+.definelabel func_800E3074_F6C94_shared_board, 0x800E3074
+.definelabel func_800E3158_F6D78_shared_board, 0x800E3158
+.definelabel func_800E31E4_F6E04_shared_board, 0x800E31E4
+.definelabel func_800E3284_F6EA4_shared_board, 0x800E3284
+.definelabel func_800E3394_F6FB4_shared_board, 0x800E3394
+.definelabel func_800E3420_F7040_shared_board, 0x800E3420
+.definelabel func_800E3448_F7068_shared_board, 0x800E3448
+.definelabel func_800E3470_F7090_shared_board, 0x800E3470
