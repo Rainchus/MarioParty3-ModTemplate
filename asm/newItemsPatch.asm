@@ -1,5 +1,10 @@
 .headersize 0x800D6B70 - 0xEA790 //ovl_80_shared_board headersize
 
+.org 0x800E3CB0
+    LUI at, hi(newMBItemFunctions + (sizeof_s32 * 1))
+    ADDU at, at, v0
+    LW v0, lo(newMBItemFunctions + (sizeof_s32 * 1)) (at)
+
 //patch references to D_80105588_1191A8_shared_board (is bss, 1191A8 is a fake rom address)
 .org 0x800F4358 //patches func_800F4348_107F68_shared_board
     LI s1, newSpriteIDList

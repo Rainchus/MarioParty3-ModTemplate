@@ -7,6 +7,56 @@ s16 func_80055810_56410(void*);
 void DataClose(void* data);
 void HuSprKill(s16);
 
+//item function definitions
+s32 func_800E2974_F6594_shared_board(void);
+s32 func_800E29E8_F6608_shared_board(void);
+s32 func_800E2B24_F6744_shared_board(void);
+s32 func_800E2B4C_F676C_shared_board(void);
+s32 func_800E2BCC_F67EC_shared_board(void);
+s32 func_800E2C4C_F686C_shared_board(void);
+s32 func_800E2E28_F6A48_shared_board(void);
+s32 func_800E2CC4_F68E4_shared_board(void);
+s32 func_800E2C74_F6894_shared_board(void);
+s32 func_800E2CEC_F690C_shared_board(void);
+s32 func_800E2C9C_F68BC_shared_board(void);
+s32 func_800E2F38_F6B58_shared_board(void);
+s32 func_800E3074_F6C94_shared_board(void);
+s32 func_800E3158_F6D78_shared_board(void);
+s32 func_800E31E4_F6E04_shared_board(void);
+s32 func_800E3284_F6EA4_shared_board(void);
+s32 func_800E3394_F6FB4_shared_board(void);
+s32 func_800E3420_F7040_shared_board(void);
+s32 func_800E3448_F7068_shared_board(void);
+s32 func_800E3470_F7090_shared_board(void);
+
+s32 (*newMBItemFunctions[])(void) = {
+    func_800E2974_F6594_shared_board,
+    func_800E29E8_F6608_shared_board,
+    func_800E2B24_F6744_shared_board,
+    func_800E2B4C_F676C_shared_board,
+    func_800E2BCC_F67EC_shared_board,
+    func_800E2C4C_F686C_shared_board,
+    func_800E2E28_F6A48_shared_board,
+    func_800E2CC4_F68E4_shared_board,
+    func_800E2C74_F6894_shared_board,
+    func_800E2CEC_F690C_shared_board,
+    func_800E2C9C_F68BC_shared_board,
+    func_800E2F38_F6B58_shared_board,
+    func_800E3074_F6C94_shared_board,
+    func_800E3158_F6D78_shared_board,
+    func_800E31E4_F6E04_shared_board,
+    func_800E3284_F6EA4_shared_board,
+    func_800E3394_F6FB4_shared_board,
+    func_800E3420_F7040_shared_board,
+    func_800E3448_F7068_shared_board,
+    func_800E3470_F7090_shared_board,
+    //
+    NULL, //toad item bag function
+    NULL, //baby bowser item bag function
+    //new item functions start here
+    func_800E2974_F6594_shared_board
+};
+
 extern s16 newSpriteIDList[];
 extern s32 D_80101944_115564_shared_board[];
 
@@ -33,8 +83,10 @@ enum ITEMS {
     ITEM_WACKY_WATCH = 18,
     ITEM_TOAD_ITEM_BAG = 19,
     ITEM_BABY_BOWSER_ITEM_BAG = 20,
+    ITEM_SLUGGISH_SHROOM = 21,
     ITEMS_END
 };
+
 
 //place holder so the DMA for C code size isn't 0
 int test(void) {
@@ -62,7 +114,9 @@ long newD_8010197C_11559C_shared_board[] = {
     0x001301A0,
     0x001301A1,
     0x0013019D, //toad item bag
-    0x001301B6 //baby bowser item bag
+    0x001301B6, //baby bowser item bag
+    //new items start here
+    0x00130261,
 };
 
 long newD_801019D0_1155F0_shared_board[] = {
@@ -87,6 +141,8 @@ long newD_801019D0_1155F0_shared_board[] = {
     0x001301B5,
     0x001301A2, //toad item bag entry missing
     0x001301A2, //baby bowser item bag entry missing
+    //new items start here
+    0x00130262,
 };
 
 //create sprite IDs for hud elements
