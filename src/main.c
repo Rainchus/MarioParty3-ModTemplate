@@ -52,6 +52,30 @@ enum ITEM_FUNCTIONS {
 extern void (*MBItemSubFunctions[22])(void);
 extern s32 D_80100F90_114BB0_shared_board;
 
+//D_80100D60_114980_shared_board (some kind of attribute related to the die)
+s32 newDiceMainFS2[] = {
+    0x00130207, //normal dice
+    0x00130207, //green die
+    0x00130207, //red die (mushroom)
+    0x00130207, //cursed die
+    0x00130207, //golden die
+    0x00130208, //warp block die
+    //new dice blocks
+    0x00130207, //duplicate of golden die for test
+};
+
+//D_80100D78_114998_shared_board
+s32 newDiceMainFS[] = {
+    0x001300FE, //normal dice
+    0x00130206, //green die
+    0x001301E7, //red die (mushroom)
+    0x00130266, //cursed die
+    0x001301E8, //golden die
+    0x0013020B, //warp block die
+    //new dice blocks
+    0x00130263, //duplicate of golden die for test
+};
+
 s32 newfunc_800E29E8_F6608_shared_board(void) {
     GW_SYSTEM* system = &GwSystem;
     GW_PLAYER* player = MBGetPlayerStruct(CUR_PLAYER);
@@ -73,7 +97,7 @@ s32 newfunc_800E29E8_F6608_shared_board(void) {
     MBItemSubFunctions[IFUNC_MUSHROOM]();
     GwPlayer[GwSystem.current_player_index].itemNo[D_80100F90_114BB0_shared_board] = -1;
     FixUpPlayerItemSlots(GwSystem.current_player_index);
-    func_800DE9AC_F25CC_shared_board(GwSystem.current_player_index, 2);
+    func_800DE9AC_F25CC_shared_board(GwSystem.current_player_index, 6); //sets 0x8010570E to 6 for sluggish dice
     func_800FF900_113520_shared_board(CUR_PLAYER, 2);
     func_800DC128_EFD48_shared_board(GwSystem.current_player_index);
     HuPrcSleep(15);

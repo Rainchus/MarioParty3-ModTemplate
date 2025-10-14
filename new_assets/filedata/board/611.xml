@@ -1,0 +1,60 @@
+<animdata texfmt="ci4">
+    <bank>
+        <frame pattern="0" time="2" flip="none"/>
+        <frame pattern="1" time="2" flip="none"/>
+        <frame pattern="2" time="2" flip="none"/>
+        <frame pattern="3" time="2" flip="none"/>
+        <frame pattern="4" time="2" flip="none"/>
+        <frame pattern="5" time="2" flip="none"/>
+        <frame pattern="6" time="2" flip="none"/>
+        <frame pattern="7" time="2" flip="none"/>
+        <frame pattern="8" time="2" flip="none"/>
+        <frame pattern="9" time="2" flip="none"/>
+    </bank>
+    <bank>
+        <frame pattern="8" time="2" flip="none"/>
+        <frame pattern="1" time="2" flip="none"/>
+        <frame pattern="3" time="2" flip="none"/>
+        <frame pattern="9" time="2" flip="none"/>
+        <frame pattern="2" time="2" flip="none"/>
+        <frame pattern="6" time="2" flip="none"/>
+        <frame pattern="4" time="2" flip="none"/>
+        <frame pattern="7" time="2" flip="none"/>
+        <frame pattern="5" time="2" flip="none"/>
+        <frame pattern="0" time="2" flip="none"/>
+    </bank>
+    <bank>
+        <frame pattern="0" time="2" flip="none"/>
+        <frame pattern="9" time="2" flip="none"/>
+        <frame pattern="8" time="2" flip="none"/>
+        <frame pattern="7" time="2" flip="none"/>
+        <frame pattern="6" time="2" flip="none"/>
+        <frame pattern="5" time="2" flip="none"/>
+        <frame pattern="4" time="2" flip="none"/>
+        <frame pattern="3" time="2" flip="none"/>
+        <frame pattern="2" time="2" flip="none"/>
+        <frame pattern="1" time="2" flip="none"/>
+    </bank>
+    <bank>
+        <frame pattern="4" time="2" flip="none"/>
+        <frame pattern="6" time="2" flip="none"/>
+        <frame pattern="5" time="2" flip="none"/>
+        <frame pattern="8" time="2" flip="none"/>
+        <frame pattern="9" time="2" flip="none"/>
+        <frame pattern="1" time="2" flip="none"/>
+        <frame pattern="2" time="2" flip="none"/>
+        <frame pattern="0" time="2" flip="none"/>
+        <frame pattern="7" time="2" flip="none"/>
+        <frame pattern="3" time="2" flip="none"/>
+    </bank>
+    <pattern center_x="16" center_y="16" path="611_0.png"/>
+    <pattern center_x="16" center_y="16" path="611_1.png"/>
+    <pattern center_x="16" center_y="16" path="611_2.png"/>
+    <pattern center_x="16" center_y="16" path="611_3.png"/>
+    <pattern center_x="16" center_y="16" path="611_4.png"/>
+    <pattern center_x="16" center_y="16" path="611_5.png"/>
+    <pattern center_x="16" center_y="16" path="611_6.png"/>
+    <pattern center_x="16" center_y="16" path="611_7.png"/>
+    <pattern center_x="16" center_y="16" path="611_8.png"/>
+    <pattern center_x="16" center_y="16" path="611_9.png"/>
+</animdata>
