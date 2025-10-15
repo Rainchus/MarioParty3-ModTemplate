@@ -76,30 +76,67 @@ s32 newDiceMainFS[] = {
     0x00130263, //duplicate of golden die for test
 };
 
+typedef struct DiceData {
+/* 0x00 */ char unk_00[2];
+/* 0x02 */ u8 forcedDiceValue1;
+/* 0x03 */ u8 forcedDiceValue2;
+/* 0x04 */ u8 forcedDiceValue3;
+/* 0x02 */ char unk_05[0x47];
+} DiceData; //sizeof 0x4C
+
+extern u8 D_8010570E;
+extern DiceData D_800CDBD0[4];
+extern s8 gCurrentPlayerIndex;
+
+u8 numberDisplayTimer = 0;
+u8 gCurDisplayNumber = 1;
+
+s32 SluggishNumberFreezeCheck(s32 curDisplayNumber) {
+    if (D_8010570E != 6) {
+        return curDisplayNumber;
+    }
+
+    //is sluggish shroom, increment current timer
+    numberDisplayTimer++;
+    if (numberDisplayTimer >= 10 * 6) { //wait 10 frames * 6 times this code is ran per frame (6 faces for dice)
+        gCurDisplayNumber++;
+        numberDisplayTimer = 0;
+    }
+
+    if (gCurDisplayNumber >= 10) {
+        gCurDisplayNumber = 0;
+    }
+
+    D_800CDBD0[gCurrentPlayerIndex].forcedDiceValue1 = gCurDisplayNumber + 1;
+
+    return gCurDisplayNumber;
+
+}
+
 s32 newfunc_800E29E8_F6608_shared_board(void) {
     GW_SYSTEM* system = &GwSystem;
     GW_PLAYER* player = MBGetPlayerStruct(CUR_PLAYER);
 
-    if (func_800DEB2C_F274C_shared_board(system->current_player_index) == 3 && player->rev & 0x80) {
-        player->rev &= ~0x80;
-        func_800EC590_1001B0_shared_board(-1, 0x3A2B);
-    } else {
-        if (func_800DEB2C_F274C_shared_board(system->current_player_index) == 3) {
-            func_800EC590_1001B0_shared_board(-1, 0x3A27);
-        }
-        if (player->rev & 0x80) {
-            player->rev &= ~0x80;
-            func_800EC590_1001B0_shared_board(-1, 0x3A29);
-        }        
-    }
+    // if (func_800DEB2C_F274C_shared_board(system->current_player_index) == 3 && player->rev & 0x80) {
+    //     player->rev &= ~0x80;
+    //     func_800EC590_1001B0_shared_board(-1, 0x3A2B);
+    // } else {
+    //     if (func_800DEB2C_F274C_shared_board(system->current_player_index) == 3) {
+    //         func_800EC590_1001B0_shared_board(-1, 0x3A27);
+    //     }
+    //     if (player->rev & 0x80) {
+    //         player->rev &= ~0x80;
+    //         func_800EC590_1001B0_shared_board(-1, 0x3A29);
+    //     }        
+    // }
 
     func_800DCA64_F0684_shared_board(GwSystem.current_player_index);
     MBItemSubFunctions[IFUNC_MUSHROOM]();
     GwPlayer[GwSystem.current_player_index].itemNo[D_80100F90_114BB0_shared_board] = -1;
     FixUpPlayerItemSlots(GwSystem.current_player_index);
     func_800DE9AC_F25CC_shared_board(GwSystem.current_player_index, 6); //sets 0x8010570E to 6 for sluggish dice
-    func_800FF900_113520_shared_board(CUR_PLAYER, 2);
-    func_800DC128_EFD48_shared_board(GwSystem.current_player_index);
+    func_800FF900_113520_shared_board(CUR_PLAYER, 2); //vibrate
+    func_800DC128_EFD48_shared_board(GwSystem.current_player_index); //spawn dice block for current player
     HuPrcSleep(15);
     return 1;
 }
