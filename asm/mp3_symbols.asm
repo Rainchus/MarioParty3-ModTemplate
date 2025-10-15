@@ -5,7 +5,9 @@
 
 .definelabel DataRead, 0x80009C10
 .definelabel D_80101944_115564_shared_board, 0x80101944
-
+.definelabel gCurrentPlayerIndex, 0x800CD067
+.definelabel D_800CDBD0, 0x800CDBD0
+.definelabel D_8010570E, 0x8010570E
 .definelabel GwPlayer, 0x800D1108
 .definelabel func_80055810_56410, 0x80055810
 .definelabel DataClose, 0x80009E6C

@@ -13,3 +13,11 @@
 .org 0x800DC284
     J newDiceSpawnGraphicLogic
     NOP
+
+.org 0x800DD024
+    J newExtraDiceSpawnHook
+    NOP
+
+.org 0x800DBD78
+    J newDiceNumberCheck
+    NOP
