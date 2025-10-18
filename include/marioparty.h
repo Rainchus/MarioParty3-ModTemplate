@@ -4,6 +4,8 @@
 #define CUR_PLAYER -1
 #define MB_MAX_PLAYERS 4
 
+#define ARRAY_COUNT(arr) (s32)(sizeof(arr) / sizeof(arr[0]))
+
 #include "ultra64.h"
 #include "PR/mbi.h"
 
@@ -195,7 +197,12 @@ typedef struct GW_SYSTEM {
     /* 0x66 - 800CD0B8 */ u8 unk_66[0x3E];
 } GW_SYSTEM; //sizeof 0xA4
 
+extern s16 D_800CDD58_CE958;
+extern s16 D_800CDD64_CE964;
+
 extern GW_SYSTEM GwSystem;
 extern GW_PLAYER GwPlayer[4];
+extern s8 gCurrentPlayerIndex;
+extern u8 D_8010570E_11932E_shared_board;
 
 #endif //_MP_H_
