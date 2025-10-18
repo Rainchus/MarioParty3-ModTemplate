@@ -14,8 +14,8 @@
     J newDiceSpawnGraphicLogic
     NOP
 
-.org 0x800DD024
-    J newExtraDiceSpawnHook
+.org 0x800DCDD4
+    J newfunc_800DCDD4_F09F4_shared_board
     NOP
 
 .org 0x800DBD78
