@@ -207,3 +207,44 @@
 .org 0x80113448
     LUI a0, hi(newD_8010197C_11559C_shared_board + (sizeof_s32 * 1)) //index 1
     LW a0, lo(newD_8010197C_11559C_shared_board + (sizeof_s32 * 1)) (a0)
+
+
+
+
+
+
+.headersize 0x800D6B70 - 0xEA790 //ovl_80_shared_board headersize
+//space type extension hooks
+.org 0x800EA5A4
+    J newfunc_800EA5A4_FE1C4_shared_board
+    NOP
+
+.org 0x800EA4F0
+    J newfunc_800EA4F0_FE110_shared_board
+    NOP
+
+
+.org 0x800ECDD4
+    J newfunc_800ECDD4_1009F4_shared_board
+    NOP
+
+
+.org 0x800F95FC
+    J newfunc_800F95FC_10D21C_shared_board
+    NOP
+
+
+.org 0x800EBDAC
+    J newfunc_800EBDAC_FF9CC_shared_board
+    NOP
+
+
+.org 0x800EA6F4
+    J newDrawSpaces
+    NOP
+
+
+.org 0x800FCA7C
+    J newfunc_800FCA7C_11069C_shared_board
+    NOP
+

@@ -33,3 +33,7 @@
 .org 0x80033210
     J newDiceDisplayBehavior
     NOP
+
+//.org 0x8007D900
+    //J displayFrameBufferWrites
+    //NOP

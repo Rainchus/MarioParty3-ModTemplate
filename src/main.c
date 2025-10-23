@@ -1,5 +1,7 @@
 #include "marioparty.h"
 
+//TODO: magikoopa wand still needs a way to set the inflict to a chosen player, and also needs code to remove the infliction
+
 void* DataRead(s32 dirAndFile);
 s16 func_80055810_56410(void*);
 void DataClose(void* data);
@@ -73,7 +75,7 @@ s32 newDiceMainFS[] = {
     0x001301E8, //golden die
     0x0013020B, //warp block die
     //new dice blocks
-    0x00130263, //duplicate of golden die for test
+    0x0013026C, //custom cyan sluggish dice
 };
 
 typedef struct DiceData {
@@ -140,10 +142,13 @@ s32 newfunc_800E29E8_F6608_shared_board(void) {
 }
 
 s32 newfunc_800E2B4C_F676C_shared_board(void) {
+    u8* inflictedPlayerFlagAddr = &GwPlayer[1].stat;
+    s32 inflictedByPlayerNo = 0;
+
     MBItemSubFunctions[8]();
     GwPlayer[GwSystem.current_player_index].itemNo[D_80100F90_114BB0_shared_board] = -1;
     FixUpPlayerItemSlots(GwSystem.current_player_index);
-    setInfliction(&GwPlayer[1].stat, 0); //player index 0 inflicts player index 1
+    setInfliction(inflictedPlayerFlagAddr, inflictedByPlayerNo); //player index 0 inflicts player index 1
     // MBItemSubFunctions[10]();
     return 1;
 }
@@ -231,7 +236,7 @@ long newD_8010197C_11559C_shared_board[] = {
     [ITEM_TOAD_ITEM_BAG] =          0x0013019D,
     [ITEM_BABY_BOWSER_ITEM_BAG] =   0x001301B6,
     //new items start here
-    [ITEM_SLUGGISH_SHROOM] =        0x00130261,
+    [ITEM_SLUGGISH_SHROOM] =        0x0013026A,
     [ITEM_MAGIKOOPA_WAND] =         0x0013018E //TODO: place holder mushroom icon
 };
 
@@ -258,7 +263,7 @@ long newD_801019D0_1155F0_shared_board[] = {
     [ITEM_TOAD_ITEM_BAG] =          0x001301A2, //toad item bag entry missing
     [ITEM_BABY_BOWSER_ITEM_BAG] =   0x001301A2, //baby bowser item bag entry missing
     //new items start here
-    [ITEM_SLUGGISH_SHROOM] =        0x00130262,
+    [ITEM_SLUGGISH_SHROOM] =        0x0013026B,
     [ITEM_MAGIKOOPA_WAND] =         0x001301A2 //TODO: place holder mushroom icon
 };
 
