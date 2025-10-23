@@ -9,6 +9,28 @@
 #include "ultra64.h"
 #include "PR/mbi.h"
 
+enum SPACE_TYPES {
+    SPACE_NONE = 0,
+    SPACE_BLUE = 1,
+    SPACE_RED = 2,
+    SPACE_UNK = 3,
+    SPACE_HAPPENING = 4,
+    SPACE_CHANCE_TIME = 5,
+    SPACE_ITEM = 6,
+    SPACE_BANK = 7,
+    SPACE_START = 8,
+    SPACE_BATTLE = 9,
+    SPACE_UNK2 = 10,
+    SPACE_UNK3 = 11,
+    SPACE_BOWSER = 12,
+    SPACE_ARROW = 13,
+    SPACE_STAR = 14,
+    SPACE_GAME_GUY = 15,
+    //custom space type indexes here
+    SPACE_MUSHROOM,
+    SPACE_TYPES_MAX
+};
+
 typedef struct Vec3f {
     f32 x;
     f32 y;
@@ -197,6 +219,16 @@ typedef struct GW_SYSTEM {
     /* 0x66 - 800CD0B8 */ u8 unk_66[0x3E];
 } GW_SYSTEM; //sizeof 0xA4
 
+typedef struct SpaceData {
+/* 0x00 */ s8 unk_00;
+/* 0x01 */ u8 space_type; // enum board_space_type
+/* 0x02 */ u16 unk_02;
+/* 0x04 */ s32 unk_04;
+/* 0x08 */ Vec coords;
+/* 0x14 */ Vec rot;
+/* 0x20 */ void* event_list;
+} SpaceData; //sizeof 0x24
+
 extern s16 D_800CDD58_CE958;
 extern s16 D_800CDD64_CE964;
 
@@ -204,5 +236,24 @@ extern GW_SYSTEM GwSystem;
 extern GW_PLAYER GwPlayer[4];
 extern s8 gCurrentPlayerIndex;
 extern u8 D_8010570E_11932E_shared_board;
+
+extern u16 gTotalSpaces;
+
+SpaceData* MBMasuGet(s16 arg0);
+void* HuMemMemoryAllocTemp(u32 size);
+void HuMemMemoryFreeTemp(void *ptr);
+u16 func_8004D6AC_4E2AC(s32, s32, s32);
+void func_80012640_13240(s16, Gfx**);
+void func_800127C4_133C4(s16, Gfx**);
+void func_80089980_8A580(Mtx*, Mtx*);
+void func_80017C10_18810(Mtx*, f32, f32, f32);
+void func_800185A4_191A4(Mtx*, f32);
+void func_80017CD0_188D0(Mtx*, f32, f32, f32);
+void func_800898F0_8A4F0(Mtx*, Mtx*);
+void func_8004D6E8_4E2E8(s16);
+void DataClose(void* data);
+void* DataRead(s32 dirAndFile);
+GW_PLAYER* MBGetPlayerStruct(s32 playerIndex);
+s16 HuAudFXPlay(s16 seId);
 
 #endif //_MP_H_

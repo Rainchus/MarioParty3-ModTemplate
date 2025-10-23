@@ -47,14 +47,14 @@
         <frame pattern="7" time="2" flip="none"/>
         <frame pattern="3" time="2" flip="none"/>
     </bank>
-    <pattern center_x="16" center_y="16" path="611_0.png"/>
-    <pattern center_x="16" center_y="16" path="611_1.png"/>
-    <pattern center_x="16" center_y="16" path="611_2.png"/>
-    <pattern center_x="16" center_y="16" path="611_3.png"/>
-    <pattern center_x="16" center_y="16" path="611_4.png"/>
-    <pattern center_x="16" center_y="16" path="611_5.png"/>
-    <pattern center_x="16" center_y="16" path="611_6.png"/>
-    <pattern center_x="16" center_y="16" path="611_7.png"/>
-    <pattern center_x="16" center_y="16" path="611_8.png"/>
-    <pattern center_x="16" center_y="16" path="611_9.png"/>
+    <pattern center_x="16" center_y="16" path="620_0.png"/>
+    <pattern center_x="16" center_y="16" path="620_1.png"/>
+    <pattern center_x="16" center_y="16" path="620_2.png"/>
+    <pattern center_x="16" center_y="16" path="620_3.png"/>
+    <pattern center_x="16" center_y="16" path="620_4.png"/>
+    <pattern center_x="16" center_y="16" path="620_5.png"/>
+    <pattern center_x="16" center_y="16" path="620_6.png"/>
+    <pattern center_x="16" center_y="16" path="620_7.png"/>
+    <pattern center_x="16" center_y="16" path="620_8.png"/>
+    <pattern center_x="16" center_y="16" path="620_9.png"/>
 </animdata>

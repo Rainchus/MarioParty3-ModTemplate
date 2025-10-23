@@ -36,21 +36,15 @@ def process_anm_to_xml():
 
 def process_files():
     new_assets_dir = "new_assets"
-    new_converted_assets_dir = "assets/new_converted_assets"
-    os.makedirs(new_converted_assets_dir, exist_ok=True)
-    log(f"Ensured output directory exists: {new_converted_assets_dir}")
-
-    filedata_dir = os.path.join(new_converted_assets_dir, "filedata")
-    if os.path.exists(filedata_dir) and os.path.isdir(filedata_dir):
-        shutil.rmtree(filedata_dir)
-        log(f"Deleted the folder: {filedata_dir}")
+    os.makedirs(new_assets_dir, exist_ok=True)
+    log(f"Ensured new_assets directory exists: {new_assets_dir}")
 
     for root, _, files in os.walk(new_assets_dir):
         for file in files:
             if file.endswith(".xml"):
                 input_file = os.path.join(root, file)
                 relative_path = os.path.relpath(input_file, new_assets_dir)
-                output_file = os.path.join(new_converted_assets_dir, os.path.splitext(relative_path)[0] + ".anm")
+                output_file = os.path.join("assets/mp3_extract", os.path.splitext(relative_path)[0] + ".anm")
                 os.makedirs(os.path.dirname(output_file), exist_ok=True)
                 log(f"Building: {input_file} -> {output_file}")
 
@@ -64,7 +58,7 @@ def process_files():
 
 def compile_txt_to_bin():
     input_dir = "new_assets"
-    output_dir = "assets/new_converted_assets"
+    output_dir = "assets/mp3_extract"
     compiler_script = os.path.join(SCRIPT_DIR, "tools", "mp3_message_compiler.py")
     os.makedirs(output_dir, exist_ok=True)
     log(f"Ensured output directory exists: {output_dir}")
@@ -94,12 +88,18 @@ def main():
     parser.add_argument("-dump", action="store_true", help="Force re-extraction of rom/mp3.z64 into assets/mp3_extract.")
     args = parser.parse_args()
 
-    # ✅ Ensure mp3_extract exists
     mp3_extract_dir = "assets/mp3_extract"
+    new_assets_dir = "new_assets"
     os.makedirs(mp3_extract_dir, exist_ok=True)
-    log(f"Ensured directory exists: {mp3_extract_dir}")
+    os.makedirs(new_assets_dir, exist_ok=True)
+    log(f"Ensured directories exist: {mp3_extract_dir}, {new_assets_dir}")
 
-    if not os.listdir(mp3_extract_dir) or args.dump:  # check if empty or forced dump
+    romdata_src = os.path.join(new_assets_dir, "romdata.xml")
+    romdata_dest = os.path.join(mp3_extract_dir, "romdata.xml")
+
+    # ✅ Extract ROM if directory is empty or user passed -dump
+    need_extract = (not os.listdir(mp3_extract_dir)) or args.dump
+    if need_extract:
         if args.dump:
             log("Forced dump requested via -dump flag.")
         else:
@@ -119,27 +119,30 @@ def main():
     else:
         log("Skipping extraction as 'assets/mp3_extract' already exists. Use -dump to force extraction.")
 
+    # ✅ Ensure romdata.xml exists in new_assets/
+    if os.path.exists(romdata_src):
+        log(f"Using existing {romdata_src}")
+    elif os.path.exists(os.path.join(mp3_extract_dir, "romdata.xml")):
+        shutil.copy(os.path.join(mp3_extract_dir, "romdata.xml"), romdata_src)
+        log(f"Copied romdata.xml from {mp3_extract_dir} → {romdata_src}")
+    else:
+        log("⚠️ No romdata.xml found in either new_assets/ or mp3_extract/. mpromtool may need to generate one manually.")
 
-    if not os.path.exists("new_converted_assets"):
-        os.makedirs("new_converted_assets")
-        log("Created new_converted_assets directory")
-
-        romdata_src = "assets/mp3_extract/romdata.xml"
-        romdata_dest = "new_converted_assets/romdata.xml"
-        if os.path.exists(romdata_src):
-            shutil.copy(romdata_src, romdata_dest)
-            log(f"Copied {romdata_src} to {romdata_dest}.")
+    # Copy romdata.xml into mp3_extract before rebuild
+    if os.path.exists(romdata_src):
+        shutil.copy(romdata_src, romdata_dest)
+        log(f"Copied romdata.xml to {romdata_dest} for rebuild step")
 
     process_files()
     compile_txt_to_bin()
 
-    log("Copying assets/new_converted_assets back to assets/mp3_extract...")
-    shutil.copytree("assets/new_converted_assets", "assets/mp3_extract", dirs_exist_ok=True)
-
     log("Building ROM...")
     try:
-        subprocess.run([MPROMTOOL, "-b", "-a", "rom/mp3.z64", "assets/mp3_extract", "rom/mp3-mainFS-repack.z64"], check=True)
-        log("Successfully built mp3-mainFS-repack.z64")
+        subprocess.run([
+            MPROMTOOL, "-b", "-a", "rom/mp3.z64",
+            "assets/mp3_extract", "rom/mp3-mainFS-repack.z64"
+        ], check=True)
+        log("✅ Successfully built mp3-mainFS-repack.z64")
     except subprocess.CalledProcessError as e:
         log(f"❌ mpromtool build failed: exit code {e.returncode}")
     except FileNotFoundError:
