@@ -62,7 +62,6 @@ extern omObjData* mbBattleKuriboObj;
 extern u16 D_800C9520_CA120[];
 extern s16 D_800D0590_D1190[];
 
-//place holder so the DMA for C code size isn't 0
 void newKettouDecision(GW_PLAYER* arg0, s32 arg1) {
     if (1) {
         MBKettouExec(arg0, arg1);
