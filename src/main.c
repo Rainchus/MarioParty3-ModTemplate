@@ -1,12 +1,12 @@
 #include "marioparty.h"
 
 //TODO: magikoopa wand still needs a way to set the inflict to a chosen player, and also needs code to remove the infliction
+void setInfliction(u8 *flags, int inflictor);
 
 void* DataRead(s32 dirAndFile);
 s16 func_80055810_56410(void*);
 void DataClose(void* data);
 void HuSprKill(s16);
-
 GW_PLAYER* MBGetPlayerStruct(s32 playerIndex);
 s32 func_800DEB2C_F274C_shared_board(s32);
 void func_800EC590_1001B0_shared_board(s32 arg0, s32 arg1);

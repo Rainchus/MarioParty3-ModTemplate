@@ -231,7 +231,7 @@ typedef struct SpaceData {
 
 extern s16 D_800CDD58_CE958;
 extern s16 D_800CDD64_CE964;
-
+extern Gfx* mp3_gMainGfxPos;
 extern GW_SYSTEM GwSystem;
 extern GW_PLAYER GwPlayer[4];
 extern s8 gCurrentPlayerIndex;

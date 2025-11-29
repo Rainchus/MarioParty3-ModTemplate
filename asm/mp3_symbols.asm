@@ -264,3 +264,37 @@
 .definelabel WipeCreateIn, 0x80061FE8
 .definelabel WipeCreateOut, 0x80062050
 .definelabel WipeStatGet, 0x800620BC
+.definelabel mp3_gMainGfxPos, 0x800D1FF4
+.definelabel WipeExecAlways, 0x80061BD4
+.definelabel alLink, 0x800771FC
+.definelabel alUnlink, 0x8007721C
+.definelabel osCreateMesgQueue, 0x8007BF00;
+.definelabel osJamMesg, 0x8007BF30;
+.definelabel osRecvMesg, 0x8007C070;
+.definelabel osSendMesg, 0x8007C1A0;
+.definelabel osEPiStartDma, 0x80072B40;
+.definelabel osCartRomInit, 0x80072BE0;
+.definelabel D_800CDD50_CE950, 0x800CDD50;
+.definelabel D_800B29F0_B35F0, 0x800B29F0;
+.definelabel D_800B2A08_B3608, 0x800B2A08;
+.definelabel D_800CCFA8_CDBA8, 0x800CCFA8;
+.definelabel D_800D6B28_D7728, 0x800D6B28;
+.definelabel osCreatePiManager, 0x800726A0;
+.definelabel _bzero, 0x8007BC90;
+.definelabel func_8000B838_C438, 0x8000B838
+.definelabel InitEspriteSlot, 0x8000BFEC
+.definelabel func_8000BBD4_C7D4, 0x8000BBD4
+.definelabel ScaleESprite, 0x8000BE5C
+.definelabel Hu3dModelCreateWrapper, 0x8000B108
+.definelabel Hu3DModelCreate, 0x8001A150
+.definelabel __osPiTable, 0x800D0380;
+
+.definelabel omovlhisidx, 0x800A1768
+.definelabel omOvlCallEx, 0x80048128
+.definelabel omOvlHisChg, 0x80048460;
+
+.definelabel dmaRead, 0x8004DA40
+.definelabel HuMemMemoryAllocPerm, 0x80035864
+.definelabel HuMemMemoryFreePerm, 0x80035888
+.definelabel DecodeData, 0x8000B000
+.definelabel _mp2_archive_start, 0x241DD30

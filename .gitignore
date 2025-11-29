@@ -12,3 +12,4 @@ obj/
 *.z64
 out.txt
 syms.txt
+tools/append_mp2.py

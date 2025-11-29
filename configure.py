@@ -22,7 +22,6 @@ def create_main_asm():
     footer = """
 .align 8
 PAYLOAD_END_RAM:
-.close
 """
     with open("asm/main.asm", 'w') as file:
         file.write(header)
@@ -32,7 +31,7 @@ PAYLOAD_END_RAM:
                 continue
             file.write(f".include \"{asm_file}\"\n")
 
-        file.write(".headersize 0x80400000 - 0x2000000\n")
+        file.write(".headersize 0x80400000 - 0x1F80000\n")
 
         file.write(f'.org 0x80400000\n')
         file.write('PAYLOAD_START_RAM:\n')
@@ -45,15 +44,30 @@ PAYLOAD_END_RAM:
             file.write(f".importobj \"{obj_file}\"\n")
 
         file.write(footer)
+        file.write(".headersize 0\n")
+        file.write(".org 0x1FFFFFC\n")
+        file.write(".word 0xDEADBEEF\n")
+        file.write(".close\n")
+        
+        
 
 def create_ninja_file(romModName, baseromName):
-    c_flags = "-O2 -Wall -Wno-missing-braces -mtune=vr4300 -march=vr4300 -mabi=32 -fomit-frame-pointer -mno-abicalls -fno-pic -G0 -fno-inline -DF3DEX_GBI_2 -DDebug"
+    c_flags = (
+        "-O1 -Wall -Wno-missing-braces -mtune=vr4300 -march=vr4300 "
+        "-mabi=32 -fomit-frame-pointer -mno-abicalls -fno-pic "
+        "-fno-tree-loop-distribute-patterns -G0 -fno-inline "
+        "-DF3DEX_GBI_2 -DDebug"
+    )
+
     with open('build.ninja', 'w') as buildfile:
         ninja = ninja_syntax.Writer(buildfile)
         ninja.variable('CC', 'mips64-elf-gcc')
         ninja.variable('CFLAGS', c_flags)
         ninja.variable('INCLUDE_FLAGS', '-Iinclude -Isrc')
 
+        # --------------------------
+        # C COMPILATION RULE
+        # --------------------------
         ninja.rule(
             "cc",
             command="$CC $CFLAGS $INCLUDE_FLAGS -c $in -o $out",
@@ -70,6 +84,9 @@ def create_ninja_file(romModName, baseromName):
 
         ninja.build('all', 'phony', obj_files)
 
+        # --------------------------
+        # ARMIPS RULE
+        # --------------------------
         ninja.rule(
             "armips",
             command="armips asm/main.asm -sym syms.txt",
@@ -77,13 +94,41 @@ def create_ninja_file(romModName, baseromName):
         )
         ninja.build('run_armips', 'armips', 'all')
 
+        # --------------------------
+        # N64CRC RULE
+        # --------------------------
         ninja.rule(
             "n64crc",
             command=f"tools/n64crc.exe rom/{romModName}",
             description=f"Calculating CRC for {romModName}"
         )
-
         ninja.build('run_n64crc', 'n64crc', 'run_armips')
+
+        # -----------------------------------------------------
+        # CREATE PYTHON APPEND SCRIPT (WINDOWS SAFE)
+        # -----------------------------------------------------
+        append_script = r'''
+import shutil
+
+with open("rom/mp3-mod.z64", "ab") as out, open("rom/mp2.z64", "rb") as src:
+    shutil.copyfileobj(src, out)
+'''
+        os.makedirs("tools", exist_ok=True)
+        with open("tools/append_mp2.py", "w") as f:
+            f.write(append_script)
+
+        # -----------------------------------------------------
+        # NINJA RULE: Append mp2.z64 onto mp3-mod.z64
+        # -----------------------------------------------------
+        ninja.rule(
+            "append_mp2",
+            command="python tools/append_mp2.py",
+            description="Appending mp2.z64 to mp3-mod.z64"
+        )
+
+        ninja.build('run_append_mp2', 'append_mp2', 'run_n64crc')
+
+
 
 if __name__ == "__main__":
     baseromName = "mp3-mainFS-repack.z64"
