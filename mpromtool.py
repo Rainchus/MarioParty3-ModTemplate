@@ -2,14 +2,36 @@ import shutil
 import os
 import subprocess
 import argparse
+import platform
 
 def log(msg):
     print(f"[DEBUG] {msg}")
 
+def log_command(cmd):
+    """Log the full command being executed"""
+    cmd_str = " ".join(str(c) for c in cmd)
+    print(f"[CMD] {cmd_str}")
+
 # Get the directory where this script is located
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-MPROMTOOL = os.path.join(SCRIPT_DIR, "tools/mpromtool.exe")
-MPN64SPRTOOL = os.path.join(SCRIPT_DIR, "tools/mpn64sprtool.exe")
+
+# Detect OS and set appropriate file extensions
+IS_WINDOWS = platform.system() == "Windows"
+EXE_EXT = ".exe" if IS_WINDOWS else ""
+
+MPROMTOOL = os.path.join(SCRIPT_DIR, f"tools/mpromtool{EXE_EXT}")
+MPN64SPRTOOL = os.path.join(SCRIPT_DIR, f"tools/mpn64sprtool{EXE_EXT}")
+
+# Detect correct Python command
+def get_python_command():
+    """Detect whether to use 'python' or 'python3'"""
+    try:
+        subprocess.run(["python3", "--version"], check=True, capture_output=True)
+        return "python3"
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        return "python"
+
+PYTHON_CMD = get_python_command()
 
 def process_anm_to_xml():
     input_dir = "assets/mp3_extract"
@@ -27,7 +49,9 @@ def process_anm_to_xml():
                 log(f"Dumping: {input_file} -> {output_file}")
 
                 try:
-                    subprocess.run([MPN64SPRTOOL, "dump", input_file, output_file], check=True)
+                    cmd = [MPN64SPRTOOL, "dump", input_file, output_file]
+                    log_command(cmd)
+                    subprocess.run(cmd, check=True)
                     log(f"Successfully dumped {input_file}")
                 except subprocess.CalledProcessError as e:
                     log(f"❌ Failed dumping {input_file}: exit code {e.returncode}")
@@ -49,7 +73,9 @@ def process_files():
                 log(f"Building: {input_file} -> {output_file}")
 
                 try:
-                    subprocess.run([MPN64SPRTOOL, "build", input_file, output_file], check=True)
+                    cmd = [MPN64SPRTOOL, "build", input_file, output_file]
+                    log_command(cmd)
+                    subprocess.run(cmd, check=True)
                     log(f"Successfully built {output_file}")
                 except subprocess.CalledProcessError as e:
                     log(f"❌ Failed building {input_file}: exit code {e.returncode}")
@@ -75,7 +101,9 @@ def compile_txt_to_bin():
             log(f"Compiling: {input_file} -> {output_file}")
 
             try:
-                subprocess.run(["python", compiler_script, input_file, output_file], check=True)
+                cmd = [PYTHON_CMD, compiler_script, input_file, output_file]
+                log_command(cmd)
+                subprocess.run(cmd, check=True)
                 log(f"Successfully compiled {input_file}")
             except subprocess.CalledProcessError as e:
                 log(f"❌ Failed to compile {input_file}: exit code {e.returncode}")
@@ -87,6 +115,9 @@ def main():
     parser = argparse.ArgumentParser(description="Process and rebuild the ROM.")
     parser.add_argument("-dump", action="store_true", help="Force re-extraction of rom/mp3.z64 into assets/mp3_extract.")
     args = parser.parse_args()
+
+    log(f"Running on {platform.system()} - using executable extension: '{EXE_EXT}'")
+    log(f"Using Python command: {PYTHON_CMD}")
 
     mp3_extract_dir = "assets/mp3_extract"
     new_assets_dir = "new_assets"
@@ -106,7 +137,9 @@ def main():
             log("assets/mp3_extract is empty. Dumping...")
 
         try:
-            subprocess.run([MPROMTOOL, "-a", "rom/mp3.z64", mp3_extract_dir], check=True)
+            cmd = [MPROMTOOL, "-a", "rom/mp3.z64", mp3_extract_dir]
+            log_command(cmd)
+            subprocess.run(cmd, check=True)
             log("Successfully extracted ROM to assets/mp3_extract")
         except subprocess.CalledProcessError as e:
             log(f"❌ mpromtool failed: exit code {e.returncode}")
@@ -138,10 +171,12 @@ def main():
 
     log("Building ROM...")
     try:
-        subprocess.run([
+        cmd = [
             MPROMTOOL, "-b", "-a", "rom/mp3.z64",
             "assets/mp3_extract", "rom/mp3-mainFS-repack.z64"
-        ], check=True)
+        ]
+        log_command(cmd)
+        subprocess.run(cmd, check=True)
         log("✅ Successfully built mp3-mainFS-repack.z64")
     except subprocess.CalledProcessError as e:
         log(f"❌ mpromtool build failed: exit code {e.returncode}")
